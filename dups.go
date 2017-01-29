@@ -21,11 +21,7 @@ func main() {
 	lineNo := 0
 	allLines := make(map[string][]int)
 	for ; err == nil; l, pre, err = reader.ReadLine() {
-		if len(lineAll) == 0 {
-			lineAll = l
-		} else {
-			lineAll = append(lineAll, l...)
-		}
+		lineAll = append(lineAll, l...)
 		if pre {
 			continue
 		}
