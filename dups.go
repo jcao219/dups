@@ -3,16 +3,24 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 )
 
 func main() {
+	var readFromStdin bool
 	if len(os.Args) != 2 {
-		panic("need to specify filename")
+		readFromStdin = true
 	}
-	f, err := os.Open(os.Args[1])
-	if err != nil {
-		panic("could not find file")
+	var f io.Reader
+	var err error
+	if readFromStdin {
+		f = os.Stdin
+	} else {
+		f, err = os.Open(os.Args[1])
+		if err != nil {
+			panic("could not find file")
+		}
 	}
 	reader := bufio.NewReader(f)
 	l, pre, err := reader.ReadLine()
